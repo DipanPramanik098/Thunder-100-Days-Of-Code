@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM Masterclass</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    color:white;
+}
+
+.container{
+    width:800px;
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+}
+
+.title{
+    text-align:center;
+    color:skyblue;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.tech-list{
+    list-style:none;
+}
+
+.tech-item{
+    background:#2563eb;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+}
+
+.special{
+    border:3px solid orange;
+}
+
+.hidden{
+    display:none;
+}
+
+</style>
+</head>
+<body>
+
+<div id="main-container" class="container">
+
+    <h1 id="main-title" class="title">
+        Thunder DOM Tutorial
+    </h1>
+
+    <h2 id="sub-title" class="subtitle">
+        Learn DOM Like a Pro
+    </h2>
+
+    <p id="description">
+        This paragraph contains
+        <strong>important text</strong>.
+    </p>
+
+    <ul id="tech-list" class="tech-list">
+
+        <li id="web" class="tech-item">
+            🌐 Web Development
+        </li>
+
+        <li id="security" class="tech-item special">
+            🔐 Security
+        </li>
+
+        <li id="system-design" class="tech-item">
+            🏗️ System Design
+        </li>
+
+        <li id="devops" class="tech-item">
+            ⚙️ DevOps
+        </li>
+
+    </ul>
+
+    <form name="login-form">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+        >
+
+    </form>
+
+</div>
+
+<script src="index.js"></script>
+
+</body>
+</html>
