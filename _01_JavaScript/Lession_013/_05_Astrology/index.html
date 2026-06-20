@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astrology Insights</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e1b4b,
+        #312e81
+    );
+}
+
+.container{
+    width:100%;
+    max-width:750px;
+    padding:35px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+h1{
+    text-align:center;
+    color:#facc15;
+    margin-bottom:25px;
+}
+
+form{
+    display:grid;
+    gap:12px;
+}
+
+label{
+    color:white;
+    font-weight:500;
+}
+
+input{
+    padding:12px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    background:rgba(255,255,255,.12);
+    color:white;
+    font-size:15px;
+}
+
+input:focus{
+    border:1px solid #facc15;
+}
+
+button{
+    margin-top:10px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#facc15;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:15px;
+    background:rgba(255,255,255,.08);
+    color:white;
+    display:none;
+    line-height:1.8;
+}
+
+.result h2{
+    color:#facc15;
+    margin-bottom:10px;
+}
+
+.card{
+    margin-top:10px;
+    padding:12px;
+    border-radius:10px;
+    background:rgba(255,255,255,.05);
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:20px;
+    }
+
+    h1{
+        font-size:1.6rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🔮 Astrology Insights</h1>
+
+    <form id="astroForm">
+
+        <label>First Name</label>
+        <input type="text" id="name" required>
+
+        <label>Surname</label>
+        <input type="text" id="surname" required>
+
+        <label>Birth Day</label>
+        <input type="number" id="day" min="1" max="31" required>
+
+        <label>Birth Month</label>
+        <input type="number" id="month" min="1" max="12" required>
+
+        <label>Birth Year</label>
+        <input type="number" id="year" min="1900" required>
+
+        <button type="submit">
+            Get My Future 🔮
+        </button>
+
+    </form>
+
+    <div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+const zodiacSigns = [
+    "Capricorn","Aquarius","Pisces","Aries",
+    "Taurus","Gemini","Cancer","Leo",
+    "Virgo","Libra","Scorpio","Sagittarius"
+];
+
+const compliments = [
+    "You have a great sense of humor.",
+    "Your smile lights up the room.",
+    "You bring out the best in people.",
+    "You're an incredibly thoughtful person.",
+    "You have a heart of gold.",
+    "Your creativity is inspiring.",
+    "You're a fantastic problem-solver.",
+    "Your kindness is contagious.",
+    "You have an amazing ability to connect with others.",
+    "You're so knowledgeable about so many things.",
+    "Your determination is admirable.",
+    "You're a great listener.",
+    "You make the world a better place.",
+    "Your positivity is infectious.",
+    "You have an eye for detail.",
+    "You're always so helpful and considerate.",
+    "You have a natural talent for leadership.",
+    "Your courage is inspiring.",
+    "You're an amazing friend.",
+    "You have a unique perspective that is refreshing.",
+    "Your energy brightens everyone’s day.",
+    "You're incredibly resourceful.",
+    "You have a wonderful way with words.",
+    "You're a ray of sunshine on a cloudy day.",
+    "Your hard work is paying off.",
+    "You're so reliable and trustworthy.",
+    "You have a fantastic sense of style.",
+    "Your confidence is inspiring.",
+    "You're a great mentor and teacher.",
+    "Your dedication is remarkable.",
+    "You make everyone feel valued and respected."
+];
+
+const victimCardCompliments = [
+    "You always do good for others, but they don't appreciate it.",
+    "You give so much, but rarely get anything in return.",
+    "Your kindness often goes unnoticed.",
+    "You sacrifice a lot for people.",
+    "You have a heart of gold.",
+    "People sometimes take your generosity for granted.",
+    "You are always there for everyone.",
+    "Your efforts often go unrecognized.",
+    "You care deeply about others.",
+    "You forgive people too easily.",
+    "You always trust people.",
+    "You support others in difficult times.",
+    "You try to maintain peace.",
+    "You carry hidden struggles.",
+    "You love sincerely.",
+    "People misunderstand your intentions.",
+    "You go out of your way for others.",
+    "You share everything you have.",
+    "You are a true friend.",
+    "You keep helping even without appreciation."
+];
+
+const recommendations = [
+    "Feed a street dog.",
+    "Plant a tree.",
+    "Help someone in need.",
+    "Practice meditation.",
+    "Exercise regularly.",
+    "Read a motivational book.",
+    "Spend time with family.",
+    "Learn a new skill.",
+    "Save money regularly.",
+    "Start journaling.",
+    "Drink more water.",
+    "Reduce social media usage.",
+    "Reconnect with old friends.",
+    "Volunteer in your community.",
+    "Take a nature walk.",
+    "Support local businesses.",
+    "Practice gratitude.",
+    "Donate unused clothes.",
+    "Develop a healthy routine.",
+    "Do one random act of kindness."
+];
+
+const predictions = [
+    "You will become a crorepati!",
+    "Success is closer than you think.",
+    "A major opportunity is coming.",
+    "Your career will reach new heights.",
+    "You will travel somewhere exciting.",
+    "A financial breakthrough awaits.",
+    "Good news is coming soon.",
+    "A new friendship will change your life.",
+    "Your hard work will pay off.",
+    "A surprise opportunity is near.",
+    "You will achieve a long-held dream.",
+    "A positive transformation is ahead.",
+    "Great things are waiting for you.",
+    "Your talents will be recognized.",
+    "A lucky phase is approaching.",
+    "New possibilities will open up.",
+    "You will inspire many people.",
+    "An exciting chapter is beginning.",
+    "A rewarding journey lies ahead.",
+    "You are destined for success."
+];
+
+const form = document.getElementById("astroForm");
+const result = document.getElementById("result");
+
+form.addEventListener("submit",(e)=>{
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const surname = document.getElementById("surname").value;
+    const day = Number(document.getElementById("day").value);
+    const month = Number(document.getElementById("month").value);
+    const year = Number(document.getElementById("year").value);
+
+    const zodiac = zodiacSigns[month - 1];
+    const compliment = compliments[(day - 1) % compliments.length];
+    const victim = victimCardCompliments[year % victimCardCompliments.length];
+    const recommendation =
+        recommendations[(day * month) % recommendations.length];
+    const prediction =
+        predictions[(name.length * surname.length) % predictions.length];
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <h2>🔮 Your Astrology Report</h2>
+
+        <div class="card">
+            <strong>Name:</strong>
+            ${name} ${surname}
+        </div>
+
+        <div class="card">
+            <strong>♈ Zodiac Sign:</strong>
+            ${zodiac}
+        </div>
+
+        <div class="card">
+            <strong>✨ Personality:</strong>
+            ${compliment}
+        </div>
+
+        <div class="card">
+            <strong>💔 Hidden Truth:</strong>
+            ${victim}
+        </div>
+
+        <div class="card">
+            <strong>🌱 Recommendation:</strong>
+            ${recommendation}
+        </div>
+
+        <div class="card">
+            <strong>🚀 Future Prediction:</strong>
+            ${prediction}
+        </div>
+    `;
+});
+
+</script>
+
+</body>
+</html>

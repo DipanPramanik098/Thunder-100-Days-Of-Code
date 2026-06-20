@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Calculator</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff6b81, #ff9ff3);
+      }
+
+      #root {
+        width: 400px;
+        padding: 35px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 2rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        background: white;
+        color: #ff4d6d;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      #result {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: bold;
+        padding: 15px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      #result span {
+        color: #fff700;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h1>❤️ Love Calculator</h1>
+
+      <label for="boy">Boy Name</label>
+      <input type="text" id="boy" placeholder="Enter boy name" />
+
+      <label for="girl">Girl Name</label>
+      <input type="text" id="girl" placeholder="Enter girl name" />
+
+      <button>Calculate Love ❤️</button>
+
+      <div id="result">Matching : <span>0%</span></div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

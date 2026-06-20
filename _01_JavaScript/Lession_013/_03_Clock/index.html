@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Clock</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Segoe UI',sans-serif;
+    }
+
+    body{
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#0f172a,#1e293b);
+    }
+
+    #show-time{
+        font-size:5rem;
+        color:#00ffff;
+        background:#111827;
+        padding:30px 60px;
+        border-radius:20px;
+        border:2px solid #00ffff;
+        box-shadow:
+            0 0 10px #00ffff,
+            0 0 20px #00ffff,
+            0 0 40px #00ffff;
+        letter-spacing:5px;
+    }
+
+    @media(max-width:768px){
+        #show-time{
+            font-size:3rem;
+            padding:20px 30px;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+<h1 id="show-time">10:11:23</h1>
+
+<script src="./index.js"></script>
+</body>
+</html>

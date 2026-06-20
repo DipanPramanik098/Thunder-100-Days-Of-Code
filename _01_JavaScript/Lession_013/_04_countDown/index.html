@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Timer</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+      }
+
+      .container {
+        width: 400px;
+        background: #111827;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      h1 {
+        color: white;
+        margin-bottom: 25px;
+      }
+
+      .timer {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #00ffff;
+        margin-bottom: 30px;
+        text-shadow:
+          0 0 10px #00ffff,
+          0 0 20px #00ffff;
+      }
+
+      .input-group {
+        margin-bottom: 25px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+      }
+
+      .start {
+        background: #22c55e;
+        color: white;
+      }
+
+      .pause {
+        background: #f59e0b;
+        color: white;
+      }
+
+      .reset {
+        background: #ef4444;
+        color: white;
+      }
+
+      @media (max-width: 500px) {
+        .container {
+          width: 90%;
+        }
+
+        .timer {
+          font-size: 3rem;
+        }
+
+        .buttons {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>⏳ Countdown Timer</h1>
+
+      <div class="timer" id="timer">00:00</div>
+
+      <div class="input-group">
+        <input type="number" id="minutes" placeholder="Enter minutes" min="1" />
+      </div>
+
+      <div class="buttons">
+        <button class="start">Start</button>
+        <button class="pause">Pause</button>
+        <button class="reset">Reset</button>
+      </div>
+    </div>
+
+    <script>
+      const timer = document.getElementById("timer");
+      const minutesInput = document.getElementById("minutes");
+
+      const startBtn = document.querySelector(".start");
+      const pauseBtn = document.querySelector(".pause");
+      const resetBtn = document.querySelector(".reset");
+
+      let timeLeft = 0;
+      let intervalId = null;
+
+      function updateDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        timer.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      startBtn.addEventListener("click", () => {
+        if (intervalId) return;
+
+        if (timeLeft === 0) {
+          const inputMinutes = Number(minutesInput.value);
+
+          if (!inputMinutes || inputMinutes <= 0) {
+            alert("Please enter valid minutes");
+            return;
+          }
+
+          timeLeft = inputMinutes * 60;
+        }
+
+        updateDisplay();
+
+        intervalId = setInterval(() => {
+          timeLeft--;
+          updateDisplay();
+
+          if (timeLeft <= 0) {
+            clearInterval(intervalId);
+            intervalId = null;
+            timer.textContent = "00:00";
+            alert("⏰ Time's up!");
+          }
+        }, 1000);
+      });
+
+      pauseBtn.addEventListener("click", () => {
+        clearInterval(intervalId);
+        intervalId = null;
+      });
+
+      resetBtn.addEventListener("click", () => {
+        clearInterval(intervalId);
+        intervalId = null;
+
+        timeLeft = 0;
+        minutesInput.value = "";
+
+        timer.textContent = "00:00";
+      });
+    </script>
+  </body>
+</html>

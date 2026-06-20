@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Validator</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 400px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: #667eea;
+      }
+
+      .criteria {
+        margin-top: 20px;
+      }
+
+      .criteria p {
+        margin: 10px 0;
+        color: #666;
+      }
+
+      .valid {
+        color: green;
+      }
+
+      .invalid {
+        color: red;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        background-color: #667eea;
+        color: white;
+      }
+
+      button:hover:not(:disabled) {
+        transform: translateY(-2px);
+      }
+
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Password Checker</h2>
+
+      <input type="password" id="password" placeholder="Enter Password" />
+
+      <div class="criteria">
+        <p id="length">❌ Minimum 8 characters</p>
+        <p id="uppercase">❌ At least 1 uppercase letter</p>
+        <p id="lowercase">❌ At least 1 lowercase letter</p>
+        <p id="number">❌ At least 1 number</p>
+        <p id="special">❌ At least 1 special character</p>
+      </div>
+      <button id="submitBtn" disabled>Submit</button>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
