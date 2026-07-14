@@ -1,0 +1,1 @@
+# [app.notion.com/p/MongoDB-internal-Architecture-39d2ac8ce056800599bcf8f5f7576aaa?source=copy_link](https://app.notion.com/p/MongoDB-internal-Architecture-39d2ac8ce056800599bcf8f5f7576aaa?source=copy_link)
