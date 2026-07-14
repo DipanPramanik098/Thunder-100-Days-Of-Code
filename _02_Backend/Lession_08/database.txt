@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Dipan Pramanik",
+    "accountNumber": "2324",
+    "city": "Panskura",
+    "age": 21,
+    "balance": 500
+  },
+  {
+    "name": "Mohammad Negi",
+    "accountNumber": "1324",
+    "city": "Up",
+    "age": 10,
+    "balance": 1500
+  }
+]
