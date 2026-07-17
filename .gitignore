@@ -118,3 +118,7 @@ mongodb-data/
 # TypeScript
 # ==========================
 *.tsbuildinfo
+
+
+# ====
+*.txt
