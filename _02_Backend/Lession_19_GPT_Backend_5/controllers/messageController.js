@@ -59,7 +59,7 @@ export const sendMessage = async (req, res) => {
         })
 
         // * dummy Reply/
-        const dummyReply = "Ekbar Koshis Karle Laadle";
+        const dummyReply1 = "Ekbar Koshis Karle Laadle";
         const dummyReply = await Message.create({
             userId: req.user._id,
             chatId: chatId,
