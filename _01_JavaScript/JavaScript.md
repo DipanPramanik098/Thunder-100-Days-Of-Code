@@ -101,14 +101,14 @@ Primitives are stored **by value** on the stack (copied whenever assigned). Obje
 
 ```mermaid
 flowchart LR
-    subgraph Stack["📌 STACK (primitives + references)"]
+    subgraph Stack["STACK (primitives + references)"]
         X["x = 10"]
-        Y["y = 10  (independent copy)"]
-        O1["obj1  →"]
-        O2["obj2  →"]
+        Y["y = 10 (independent copy)"]
+        O1["obj1"]
+        O2["obj2"]
     end
-    subgraph Heap["🗄️ HEAP (objects)"]
-        H["{ val: 10 }"]
+    subgraph Heap["HEAP (objects)"]
+        H["val: 10"]
     end
     O1 --> H
     O2 --> H
@@ -219,11 +219,11 @@ do { console.log(j); j++; } while (j < 3);  // runs body at least once
 
 ```mermaid
 flowchart LR
-    subgraph forOf["for...of → VALUES"]
-        A1["[10, 20, 30]"] --> A2["10 → 20 → 30"]
+    subgraph forOf["for...of loop - VALUES"]
+        A1["10, 20, 30"] --> A2["10 then 20 then 30"]
     end
-    subgraph forIn["for...in → KEYS"]
-        B1["{a:1, b:2}"] --> B2['"a" → "b"']
+    subgraph forIn["for...in loop - KEYS"]
+        B1["a:1, b:2"] --> B2["a then b"]
     end
 ```
 
@@ -269,9 +269,9 @@ function greetWithDefault(name = "Guest") { return `Hi, ${name}`; } // default p
 
 ```mermaid
 flowchart TD
-    A["[1, 2, 3]"] -->|"map(x => x*2)"| B["[2, 4, 6]"]
-    A -->|"filter(x => x > 1)"| C["[2, 3]"]
-    A -->|"reduce((acc,x) => acc+x, 0)"| D["6 (single value)"]
+    A["1, 2, 3"] -->|"map: multiply by 2"| B["2, 4, 6"]
+    A -->|"filter: greater than 1"| C["2, 3"]
+    A -->|"reduce: sum all"| D["6 (single value)"]
 ```
 
 - **`map`** transforms every element → returns a **new array of the same length**.
@@ -330,8 +330,8 @@ const updated = { ...person, age: 27 };   // spread — shallow copy + override
 
 ```mermaid
 flowchart LR
-    O["original = { name: 'A', address: {city:'X'} }"] --> C["copy = {...original}"]
-    O -->|"address (same ref!)"| Addr["{ city: 'X' }"]
+    O["original: name A, address obj"] --> C["copy: spread of original"]
+    O -->|"address (same ref!)"| Addr["address object: city X"]
     C -->|"address (same ref!)"| Addr
 ```
 
@@ -352,7 +352,7 @@ const deepCopy = structuredClone(original); // ✅ true deep clone (modern brows
 flowchart TD
     subgraph Global["GLOBAL SCOPE"]
         subgraph Func["FUNCTION SCOPE (outer)"]
-            subgraph Block["BLOCK SCOPE { }"]
+            subgraph Block["BLOCK SCOPE"]
                 Note1["let / const only visible here"]
             end
             Note2["var declared inside the block LEAKS UP to here"]
@@ -374,9 +374,9 @@ let b = 5;
 
 ```mermaid
 flowchart TD
-    A["Block starts"] --> B["🚫 TDZ for x — accessing x here throws ReferenceError"]
-    B --> C["let x = 10;  ← TDZ ends here"]
-    C --> D["✅ console.log(x) is now safe"]
+    A["Block starts"] --> B["TDZ for x - accessing x here throws ReferenceError"]
+    B --> C["let x = 10 runs here - TDZ ends"]
+    C --> D["console.log(x) is now safe"]
 ```
 
 
@@ -405,8 +405,8 @@ counter(); // 2 — count persists between calls!
 
 ```mermaid
 flowchart LR
-    A["makeCounter() call\ncount = 0\nreturns inner fn"] --> B["counter\n(closure keeps 'count' alive)"]
-    A -.execution ends, but.-> C["'count' is NOT garbage collected\n— it's still referenced by the closure"]
+    A["makeCounter call: count = 0, returns inner fn"] --> B["counter: closure keeps count alive"]
+    A -.outer function ends.-> C["count is NOT garbage collected - still referenced by the closure"]
 ```
 
 Closures are the mechanism behind private variables, memoization, and the module pattern.
@@ -428,9 +428,9 @@ for (let j = 0; j < 3; j++) setTimeout(() => console.log(j), 100); // 0, 1, 2
 
 ```mermaid
 flowchart TD
-    A["1. new binding\nnew Foo() → this = the newly created object"] --> B["2. Explicit binding\nfn.call/apply/bind(obj) → this = obj"]
-    B --> C["3. Implicit binding\nobj.method() → this = obj"]
-    C --> D["4. Default binding\nfn() → this = undefined (strict) / global object"]
+    A["1. new binding: new Foo() sets this to the newly created object"] --> B["2. Explicit binding: fn.call/apply/bind(obj) sets this to obj"]
+    B --> C["3. Implicit binding: obj.method() sets this to obj"]
+    C --> D["4. Default binding: fn() sets this to undefined (strict) or global object"]
 ```
 
 ```js
@@ -462,9 +462,9 @@ Every JS object has an internal link, `[[Prototype]]`, to another object it can 
 
 ```mermaid
 flowchart LR
-    D["dog { name: 'Rex' }"] -->|"[[Prototype]]"| A["Animal.prototype { speak }"]
-    A -->|"[[Prototype]]"| O["Object.prototype"]
-    O -->|"[[Prototype]]"| N["null (chain ends)"]
+    D["dog object: name Rex"] -->|"Prototype link"| A["Animal.prototype: speak method"]
+    A -->|"Prototype link"| O["Object.prototype"]
+    O -->|"Prototype link"| N["null (chain ends)"]
 ```
 
 ```js
@@ -552,7 +552,7 @@ Events travel through the DOM tree in **two phases**: first down (**capturing**)
 
 ```mermaid
 flowchart LR
-    doc1["document"] --> body1["body"] --> div1["div"] --> btn["🎯 BUTTON (target)"]
+    doc1["document"] --> body1["body"] --> div1["div"] --> btn["BUTTON (target)"]
     btn --> div2["div"] --> body2["body"] --> doc2["document"]
 ```
 
@@ -598,7 +598,7 @@ sequenceDiagram
     participant S as Server
     C->>S: GET /users
     S-->>C: 200 OK + JSON
-    C->>S: POST /users {name:"A"}
+    C->>S: POST /users with name A
     S-->>C: 201 Created
 ```
 
@@ -717,10 +717,10 @@ async function getData() {
 gantt
     dateFormat X
     axisFormat %s
-    section Sequential (slower)
+    section Sequential - slower
     taskA :a1, 0, 3
     taskB :a2, after a1, 3
-    section Parallel (faster)
+    section Parallel - faster
     taskA :b1, 0, 3
     taskB :b2, 0, 3
 ```
@@ -742,10 +742,10 @@ This is what lets single-threaded JS handle asynchronous work without blocking.
 
 ```mermaid
 flowchart TD
-    CS["📚 Call Stack\n(runs synchronous code)"]
-    WA["🌐 Web APIs\n(timers, fetch, DOM events)"]
-    MiQ["⚡ Microtask Queue\n(Promise .then/.catch, queueMicrotask)"]
-    MaQ["⏰ Macrotask Queue\n(setTimeout, setInterval, UI events)"]
+    CS["Call Stack - runs synchronous code"]
+    WA["Web APIs - timers, fetch, DOM events"]
+    MiQ["Microtask Queue - Promise then/catch, queueMicrotask"]
+    MaQ["Macrotask Queue - setTimeout, setInterval, UI events"]
 
     CS -->|"async work handed off"| WA
     WA -->|"when ready"| MiQ
@@ -877,11 +877,11 @@ Both limit how often a function runs in response to rapid, repeated events — b
 
 ```mermaid
 flowchart TD
-    subgraph Debounce["Debounce — waits for a pause, fires ONCE after"]
-        d1["• • •      • •"] --> d2["✅ fires only after events stop for `delay` ms"]
+    subgraph Debounce["Debounce - waits for a pause, fires ONCE after"]
+        d1["rapid events, uneven gaps"] --> d2["fires only after events stop for delay ms"]
     end
-    subgraph Throttle["Throttle — fires at a fixed, evenly-spaced interval"]
-        t1["• • • • • •"] --> t2["✅ fires every `limit` ms regardless of event frequency"]
+    subgraph Throttle["Throttle - fires at a fixed, evenly-spaced interval"]
+        t1["rapid events, continuous"] --> t2["fires every limit ms regardless of event frequency"]
     end
 ```
 
@@ -921,11 +921,11 @@ JS uses **automatic garbage collection** via a mark-and-sweep algorithm.
 
 ```mermaid
 flowchart LR
-    Roots["🌱 Roots\n(global vars, active call stack)"] --> A["obj A (reachable)"]
+    Roots["Roots - global vars, active call stack"] --> A["obj A (reachable)"]
     A --> B["obj B (reachable)"]
-    C["obj C — unreachable"]:::unreachable
+    C["obj C - unreachable, will be swept"]:::unreachable
 
-    classDef unreachable stroke-dasharray: 5 5,stroke:#ff5577
+    classDef unreachable stroke-dasharray:5 5,stroke:#ff5577
 ```
 
 1. **Mark**: starting from the "roots" (global variables, currently-executing function scopes), the GC traverses every reference and marks all reachable objects.
