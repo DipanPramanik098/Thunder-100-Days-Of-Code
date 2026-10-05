@@ -1,0 +1,122 @@
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+    line-height: 1.5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ===== Profile Section ===== */
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #262626;
+    text-align: center;
+}
+
+/* Stats (Followers / Following) */
+p {
+    font-size: 0.95rem;
+    color: #262626;
+    margin: 4px 0;
+}
+
+/* Wrap followers/following nicely (optional) */
+body > p {
+    display: inline-block;
+    margin: 0 12px 10px;
+    font-weight: 500;
+}
+
+/* Since we can't easily style the wrapper without HTML changes,
+   we'll treat the first two <p> as a row using adjacent rules */
+body > h1 + p,
+body > h1 + p + p {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/* ===== Posts Section ===== */
+h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 30px 0 15px;
+    text-align: center;
+    color: #262626;
+    border-top: 1px solid #dbdbdb;
+    padding-top: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Post card */
+div {
+    background-color: #ffffff;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Post image */
+div img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    background-color: #efefef;
+}
+
+/* Likes & Comments */
+div p {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    color: #262626;
+}
+
+div p:first-of-type {
+    padding-top: 12px;
+    font-weight: 600;
+}
+
+div p:last-of-type {
+    padding-bottom: 14px;
+    color: #8e8e8e;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 520px) {
+    body {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    div,
+    h2 {
+        max-width: 100%;
+    }
+}
