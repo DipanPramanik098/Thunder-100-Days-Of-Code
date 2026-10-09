@@ -1,0 +1,505 @@
+
+/* =========================================================
+   1. GLOBAL RESET AND BASE STYLES
+   ========================================================= */
+
+/* Remove default spacing and make sizing predictable */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General page styling */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f6f8;
+    color: #262626;
+    line-height: 1.6;
+    padding: 35px 20px;
+    min-height: 100vh;
+}
+
+/* Main headings */
+h1 {
+    color: #b92b27;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+/* Secondary headings */
+h2 {
+    color: #333333;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* Paragraphs */
+p {
+    color: #444444;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   2. LINKS AND GENERAL BUTTONS
+   ========================================================= */
+
+/* Default link styling */
+a {
+    display: inline-block;
+    color: #185abc;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 5px 8px 5px 0;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Link hover effect */
+a:hover {
+    color: #b92b27;
+    text-decoration: underline;
+}
+
+/* Keyboard accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #7aa7f7;
+    outline-offset: 3px;
+}
+
+/* Shared button styling */
+button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    padding: 11px 20px;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Button press effect */
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   3. POSTS LIST PAGE — index.ejs
+   ========================================================= */
+
+/* Main page heading */
+body > h1 {
+    max-width: 850px;
+    margin: 0 auto 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e2e5e9;
+}
+
+/* Individual post cards */
+body > div {
+    max-width: 850px;
+    margin: 0 auto 18px;
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #e3e6eb;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    transition:
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+/* Post card hover effect */
+body > div:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Username inside each post */
+body > div h2 {
+    color: #262626;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Post content inside each card */
+body > div p {
+    color: #4b5563;
+    font-size: 16px;
+    margin-bottom: 18px;
+    white-space: pre-wrap;
+}
+
+/* View Post and Edit Post links */
+body > div > a {
+    padding: 8px 13px;
+    border: 1px solid #d9e2f2;
+    border-radius: 6px;
+    background-color: #f5f8ff;
+    margin-bottom: 8px;
+}
+
+/* Hover for post action links */
+body > div > a:hover {
+    background-color: #e8efff;
+    color: #174ea6;
+    text-decoration: none;
+}
+
+/* Delete form */
+body > div > form {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+/* Delete Post button */
+body > div > form button {
+    background-color: #fff0f0;
+    color: #b42318;
+    border: 1px solid #f2c5c5;
+    padding: 9px 15px;
+}
+
+/* Delete button hover */
+body > div > form button:hover {
+    background-color: #b42318;
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(185, 43, 39, 0.2);
+}
+
+/* Create New Post link */
+.new-post-button {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 28px auto 10px;
+    padding: 13px 24px;
+    background-color: #b92b27;
+    color: #ffffff;
+    border: 1px solid #b92b27;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(185, 43, 39, 0.15);
+}
+
+/* Create Post hover effect */
+.new-post-button:hover {
+    background-color: #96221f;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(185, 43, 39, 0.22);
+}
+
+
+/* =========================================================
+   4. EDIT POST PAGE — edit.ejs
+   ========================================================= */
+
+/* Form container */
+body:has(form[action*="_method=PATCH"]) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Edit page heading */
+body:has(form[action*="_method=PATCH"]) > h1 {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 22px;
+}
+
+/* Edit form layout */
+form[action*="_method=PATCH"] {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #e2e5e9;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* Form labels */
+form[action*="_method=PATCH"] label {
+    display: block;
+    color: #333333;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* Username input */
+form[action*="_method=PATCH"] input[type="text"] {
+    display: block;
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 13px;
+    margin-bottom: 20px;
+    color: #262626;
+    background-color: #ffffff;
+    border: 1px solid #cbd0d8;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Username input focus */
+form[action*="_method=PATCH"] input[type="text"]:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.12);
+}
+
+/* Content textarea */
+form[action*="_method=PATCH"] textarea {
+    display: block;
+    width: 100%;
+    min-height: 180px;
+    padding: 12px 13px;
+    margin-bottom: 20px;
+    color: #262626;
+    background-color: #ffffff;
+    border: 1px solid #cbd0d8;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.7;
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Textarea focus */
+form[action*="_method=PATCH"] textarea:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.12);
+}
+
+/* Update Post button */
+form[action*="_method=PATCH"] button[type="submit"] {
+    width: 100%;
+    min-height: 46px;
+    background-color: #b92b27;
+    color: #ffffff;
+}
+
+/* Update button hover */
+form[action*="_method=PATCH"] button[type="submit"]:hover {
+    background-color: #96221f;
+    box-shadow: 0 4px 10px rgba(185, 43, 39, 0.2);
+}
+
+
+/* =========================================================
+   5. SINGLE POST PAGE — show.ejs
+   ========================================================= */
+
+/* Detail page heading */
+body:has(a[href="/posts"]) > h2 {
+    max-width: 750px;
+    margin: 30px auto 18px;
+    padding: 20px 24px 0;
+    color: #b92b27;
+    font-size: 21px;
+}
+
+/* Username heading on the detail page */
+body:has(a[href="/posts"]) > h1 {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #e3e6eb;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    color: #262626;
+    font-size: 28px;
+    overflow-wrap: anywhere;
+}
+
+/* Post content on the detail page */
+body:has(a[href="/posts"]) > p {
+    max-width: 750px;
+    margin: 0 auto 20px;
+    padding: 0 24px 26px;
+    background-color: #ffffff;
+    border: 1px solid #e3e6eb;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    color: #4b5563;
+    font-size: 17px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Back to Posts link */
+body:has(a[href="/posts"]) > a[href="/posts"] {
+    display: block;
+    width: fit-content;
+    max-width: 750px;
+    margin: 20px auto;
+    padding: 11px 18px;
+    background-color: #b92b27;
+    color: #ffffff;
+    border-radius: 7px;
+    text-align: center;
+}
+
+/* Back link hover */
+body:has(a[href="/posts"]) > a[href="/posts"]:hover {
+    background-color: #96221f;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   6. RESPONSIVE DESIGN
+   ========================================================= */
+
+/* Tablets and smaller screens */
+@media (max-width: 768px) {
+    body {
+        padding: 25px 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    body > div {
+        padding: 20px;
+    }
+
+    form[action*="_method=PATCH"] {
+        padding: 24px;
+    }
+
+    body:has(a[href="/posts"]) > h2 {
+        padding: 15px 18px 0;
+    }
+
+    body:has(a[href="/posts"]) > h1 {
+        padding: 20px 18px;
+        font-size: 25px;
+    }
+
+    body:has(a[href="/posts"]) > p {
+        padding: 0 18px 22px;
+        font-size: 16px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    body {
+        padding: 18px 12px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    body > div {
+        padding: 16px;
+        border-radius: 9px;
+    }
+
+    body > div > a {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    body > div > form {
+        display: block;
+        margin-top: 10px;
+    }
+
+    body > div > form button {
+        width: 100%;
+    }
+
+    .new-post-button {
+        width: 100%;
+        padding: 12px 16px;
+    }
+
+    form[action*="_method=PATCH"] {
+        padding: 18px;
+    }
+
+    form[action*="_method=PATCH"] textarea {
+        min-height: 150px;
+    }
+
+    body:has(a[href="/posts"]) > h2 {
+        font-size: 19px;
+        padding: 12px 14px 0;
+    }
+
+    body:has(a[href="/posts"]) > h1 {
+        padding: 18px 14px;
+        font-size: 23px;
+    }
+
+    body:has(a[href="/posts"]) > p {
+        padding: 0 14px 20px;
+        font-size: 15px;
+    }
+}
+
+
+/* =========================================================
+   7. REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
